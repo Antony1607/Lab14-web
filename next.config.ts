@@ -8,10 +8,9 @@ const nextConfig = {
         source: '/sitemap.xml',
         destination: '/api/sitemap',
       },
-      // ⚡ EL TRUCO: Cuando tú pongas "blog-sitemap" en Search Console, 
-      // Next llamará silenciosamente a tu API y le dará XML puro a Google.
+
       {
-        source: '/blog-sitemap', 
+        source: '/blog.xml', 
         destination: '/api/sitemap',
       }
     ];
