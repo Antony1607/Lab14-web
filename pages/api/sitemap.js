@@ -1,7 +1,6 @@
 export default async function handler(req, res) {
-  const BASE_URL =
-    process.env.NEXT_PUBLIC_BASE_URL ||
-    "https://lab14-web.onrender.com";
+  // Tu dominio real
+  const BASE_URL = "https://lab14-web.onrender.com";
 
   const postsDinamicos = [
     { slug: "introduccion-a-nextjs" },
@@ -16,14 +15,12 @@ export default async function handler(req, res) {
 
   const paginasEstaticas = ["", "blog", "contacto"];
 
-  let xml = `<?xml version="1.0" encoding="UTF-8"?>`;
-
-  xml += `<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">`;
+  let xml = '<?xml version="1.0" encoding="UTF-8"?>';
+  xml += '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">';
 
   // 🧭 Páginas estáticas
   paginasEstaticas.forEach((page) => {
     const ruta = page ? `/${page}` : "";
-
     xml += `
       <url>
         <loc>${BASE_URL}${ruta}</loc>
@@ -55,10 +52,9 @@ export default async function handler(req, res) {
     `;
   });
 
-  xml += `</urlset>`;
+  xml += "</urlset>";
 
-  res.setHeader("Content-Type", "application/xml; charset=utf-8");
-  res.setHeader("Cache-Control", "s-maxage=86400, stale-while-revalidate");
-
-  return res.status(200).send(xml);
+  // ⚡ Limpiamos las cabeceras igual que tu amigo: sin charset extra y sin caché pesada
+  res.setHeader("Content-Type", "application/xml");
+  res.status(200).send(xml);
 }
