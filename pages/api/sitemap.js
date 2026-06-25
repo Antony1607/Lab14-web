@@ -21,11 +21,14 @@ ${urls
     return `
   <url>
     <loc>${BASE_URL}${url}</loc>
+    <lastmod>${new Date().toISOString()}</lastmod>
   </url>`;
   })
   .join("")}
 </urlset>`;
 
-  res.setHeader("Content-Type", "application/xml");
-  res.status(200).send(sitemap);
+  res.setHeader("Content-Type", "application/xml; charset=utf-8");
+  res.setHeader("Cache-Control", "s-maxage=86400, stale-while-revalidate");
+
+  return res.status(200).send(sitemap);
 }
